@@ -2,37 +2,36 @@ package cegepst;
 
 import java.lang.annotation.Documented;
 import java.sql.SQLOutput;
+import java.util.Scanner;
 
 public class Game {
     private Deck deck;
+    private Dealer dealer;
     private Player player = new Player();
     private Player opponent = new Player();
-    private Card[] community = new Card[5];
+    private Scanner input;
+
+    public Game() {
+        input = new Scanner(System.in);
+    }
 
     public void start() {
         deck = new Deck();
-        deck.shuffle();
-        deck.showDeck();
-        dealCards(); //TODO: Faire une classe dealer;
+        dealer = new Dealer(deck);
+        dealer.startRound(player, opponent);
+        play();
     }
 
-    //Testé
-    private void dealCards() {
-        int index = deck.getDeckSize() - 1;
-        for(int i = index; i > index - 4; --i){
-            if(i % 2 == 0) {
-                player.receiveCard(deck.draw(i));
-            }else{
-                opponent.receiveCard(deck.draw(i));
-            }
+    public void play() {
+        while (true){
+            System.out.print("Voulez vous continuer (0) ou vous coucher (1) ? ");
+            if(input.nextInt() == 1){ break; }
+            dealer.showTurn();
+            System.out.print("Voulez vous continuer (0) ou vous coucher (1) ? ");
+            if(input.nextInt() == 1){ break; }
+            dealer.showRiver();
+            System.out.println("Voyons voir les résultats.");
         }
-        player.showHand();
-        opponent.showHand();
-        index = deck.getDeckSize() - 1;
-        for(int i = 0; i < 5; ++i){
-            community[i] = deck.draw(index);
-            --index;
-            System.out.println(community[i].getCardName());
-        }
+        System.out.println("Merci d'avoir joué!");
     }
 }

@@ -3,30 +3,28 @@ package cegepst;
 import java.util.ArrayList;
 
 public class Player {
-    private ArrayList<Card> hand;
+    private ArrayList<Card> hole;
 
     public Player() {
-        hand = new ArrayList<>();
+        hole = new ArrayList<>();
     }
 
-    public ArrayList<Card> getHand() {
-        return hand;
+    public ArrayList<Card> getHole() {
+        return hole;
     }
-
 
     public void receiveCard(Card card){
-        hand.add(card);
+        hole.add(card);
     }
 
-    /*public void reset() {
-        for(Card card : hand) {
+    public void reset() {
+        for(Card card : hole) {
             card = null;
         }
-    }*/
+    }
 
-
-    public void showHand() {
-        for(Card card : hand) {
+    public void showHole() {
+        for(Card card : hole) {
             System.out.println(card.getCardName());
         }
     }
