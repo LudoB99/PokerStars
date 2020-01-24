@@ -25,7 +25,8 @@ public class Player {
 
     public void showHole() {
         for(Card card : hole) {
-            System.out.println(card.getCardName());
+            System.out.print(card.getCardName());
         }
+        System.out.println();
     }
 }

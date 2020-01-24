@@ -3,9 +3,9 @@ package cegepst;
 public class Card {
     private int id;
     private String value;
-    private String type;
+    private char type;
 
-    public Card(int id, String value, String type) {
+    public Card(int id, String value, char type) {
         this.id = id;
         this.value = value;
         this.type = type;
@@ -19,15 +19,15 @@ public class Card {
         return value;
     }
 
-    public String getType() {
+    public char getType() {
         return type;
     }
 
     public String getCardName() {
-        return value + " de " + type;
+        return "[" + value + ' ' + type + "] ";
     }
 
     public String getDetail() {
-        return value + " de " + type + " (" + id + ")";
+        return value + ' ' + type + " (" + id + ")";
     }
 }

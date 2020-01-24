@@ -16,21 +16,23 @@ public class Game {
     }
 
     public void start() {
-        deck = new Deck();
-        dealer = new Dealer(deck);
-        dealer.startRound(player, opponent);
-        play();
-    }
-
-    public void play() {
-        while (true){
+        while (true) {
+            deck = new Deck();
+            dealer = new Dealer(deck);
+            dealer.startRound(player, opponent);
             System.out.print("Voulez vous continuer (0) ou vous coucher (1) ? ");
             if(input.nextInt() == 1){ break; }
+            System.out.print("Vous avez en main: ");
+            player.showHole();
             dealer.showTurn();
             System.out.print("Voulez vous continuer (0) ou vous coucher (1) ? ");
             if(input.nextInt() == 1){ break; }
+            System.out.print("Vous avez en main: ");
+            player.showHole();
             dealer.showRiver();
-            System.out.println("Voyons voir les résultats.");
+            System.out.println("Le gagnant de la manche est...");
+            System.out.print("Voulez-vous continuer? y/n : ");
+            if(!input.next().equals("y")){ break; }
         }
         System.out.println("Merci d'avoir joué!");
     }

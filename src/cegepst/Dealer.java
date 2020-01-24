@@ -26,7 +26,7 @@ public class Dealer {
                 opponent.receiveCard(deck.draw(i));
             }
         }
-        System.out.println("Vous avez en main: ");
+        System.out.print("Vous avez en main: ");
         player.showHole();
     }
 
@@ -41,20 +41,32 @@ public class Dealer {
     }
 
     public void showFlop() {
-        System.out.println("Il y a sur la table :");
+        System.out.print("Il y a sur la table : ");
         for(short i = 0; i < 3; ++i){
-            System.out.println(community[i].getCardName());
+            System.out.print(community[i].getCardName());
         }
-        System.out.println("Faites vos jeux!");
+        System.out.println();
     }
 
     public void showTurn() {
-        System.out.println("Je révèle la 4e carte: ");
+        System.out.print("Je révèle la 4e carte: ");
+        for(short i = 0; i < 3; ++i){
+            System.out.print(community[i].getCardName());
+        }
         System.out.println(community[3].getCardName());
     }
 
     public void showRiver() {
-        System.out.println("Je révèle la 5e carte: ");
+        System.out.print("Je révèle la 5e carte: ");
+        for(short i = 0; i < 4; ++i){
+            System.out.print(community[i].getCardName());
+        }
         System.out.println(community[4].getCardName());
+    }
+
+    public void showTable() {
+        for(short i = 0; i < 5; ++i){
+            System.out.print(community[i].getCardName() + " ");
+        }
     }
 }
