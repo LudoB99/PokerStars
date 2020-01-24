@@ -1,4 +1,4 @@
-package cegepst;
+package cegepst.Entities;
 
 public class Card {
     private int id;

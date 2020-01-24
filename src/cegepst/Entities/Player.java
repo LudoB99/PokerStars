@@ -1,4 +1,6 @@
-package cegepst;
+package cegepst.Entities;
+
+import cegepst.Entities.Card;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,14 @@
-package cegepst;
+package cegepst.Entities;
+
+import java.util.ArrayList;
 
 public class Dealer {
     private Deck deck;
-    private Card[] community = new Card[5];
+    private ArrayList<Card> community;
 
     public Dealer(Deck deck) {
         this.deck = deck;
+        community = new ArrayList<>();
     }
 
     public void startRound(Player player, Player opponent) {
@@ -31,11 +34,9 @@ public class Dealer {
     }
 
     public void setupTable() {
-        int index = 0;
         for(int i = 1; i < 8; ++i){
             if(i != 3 && i != 5){
-                community[index] = deck.draw(deck.getDeckSize() - i);
-                ++index;
+                community.add(deck.draw(deck.getDeckSize() - i));
             }
         }
     }
@@ -43,7 +44,7 @@ public class Dealer {
     public void showFlop() {
         System.out.print("Il y a sur la table : ");
         for(short i = 0; i < 3; ++i){
-            System.out.print(community[i].getCardName());
+            System.out.print(community.get(i).getCardName());
         }
         System.out.println();
     }
@@ -51,22 +52,26 @@ public class Dealer {
     public void showTurn() {
         System.out.print("Je révèle la 4e carte: ");
         for(short i = 0; i < 3; ++i){
-            System.out.print(community[i].getCardName());
+            System.out.print(community.get(i).getCardName());
         }
-        System.out.println(community[3].getCardName());
+        System.out.println(community.get(3).getCardName());
     }
 
     public void showRiver() {
         System.out.print("Je révèle la 5e carte: ");
         for(short i = 0; i < 4; ++i){
-            System.out.print(community[i].getCardName());
+            System.out.print(community.get(i).getCardName());
         }
-        System.out.println(community[4].getCardName());
+        System.out.println(community.get(4).getCardName());
     }
 
     public void showTable() {
         for(short i = 0; i < 5; ++i){
-            System.out.print(community[i].getCardName() + " ");
+            System.out.print(community.get(i).getCardName() + " ");
         }
+    }
+
+    public ArrayList<Card> getCommunity() {
+        return community;
     }
 }

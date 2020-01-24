@@ -1,7 +1,9 @@
-package cegepst;
+package cegepst.Entities;
 
-import java.lang.annotation.Documented;
-import java.sql.SQLOutput;
+import cegepst.ChainOfResponsibiliy.CoR;
+import cegepst.ChainOfResponsibiliy.RoyalFlush;
+import cegepst.ChainOfResponsibiliy.StraightFlush;
+
 import java.util.Scanner;
 
 public class Game {
@@ -10,9 +12,11 @@ public class Game {
     private Player player = new Player();
     private Player opponent = new Player();
     private Scanner input;
+    private Checker check;
 
     public Game() {
         input = new Scanner(System.in);
+        check = new Checker();
     }
 
     public void start() {
@@ -31,6 +35,7 @@ public class Game {
             player.showHole();
             dealer.showRiver();
             System.out.println("Le gagnant de la manche est...");
+            check.process(player.getHole(), dealer.getCommunity());
             System.out.print("Voulez-vous continuer? y/n : ");
             if(!input.next().equals("y")){ break; }
         }

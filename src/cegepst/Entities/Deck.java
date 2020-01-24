@@ -1,4 +1,6 @@
-package cegepst;
+package cegepst.Entities;
+
+import cegepst.Entities.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +37,7 @@ public class Deck {
         }
     }
 
-    public void sort () {
+    public void sort() {
         cards.clear();
         getNewDeck();
     }
