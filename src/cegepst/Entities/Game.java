@@ -4,6 +4,7 @@ import cegepst.ChainOfResponsibiliy.CoR;
 import cegepst.ChainOfResponsibiliy.RoyalFlush;
 import cegepst.ChainOfResponsibiliy.StraightFlush;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -35,10 +36,15 @@ public class Game {
             player.showHole();
             dealer.showRiver();
             System.out.println("Le gagnant de la manche est...");
-            check.process(player.getHole(), dealer.getCommunity());
+            check.process(getBoard(player.getHole(), dealer.getCommunity()));
             System.out.print("Voulez-vous continuer? y/n : ");
             if(!input.next().equals("y")){ break; }
         }
         System.out.println("Merci d'avoir joué!");
+    }
+
+    private ArrayList<Card> getBoard (ArrayList<Card> hole, ArrayList<Card> community) {
+        community.addAll(hole);
+        return community;
     }
 }

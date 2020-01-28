@@ -17,33 +17,19 @@ public class Checker {
     CoR c10;
 
     public Checker() {
-        c1 = new RoyalFlush();
-        c2 = new StraightFlush();
-        c3 = new FourOfAKind();
-        c4 = new FullHouse();
-        c5 = new Flush();
-        c6 = new Straight();
-        c7 = new ThreeOfAKind();
-        c8 = new TwoPair();
-        c9 = new Pair();
-        c10 = new HighCard();
-        SetupChain();
+        c10 = new HighCard(null);
+        c9 = new Pair(c10);
+        c8 = new TwoPair(c9);
+        c7 = new ThreeOfAKind(c8);
+        c6 = new Straight(c7);
+        c5 = new Flush(c6);
+        c4 = new FullHouse(c5);
+        c3 = new FourOfAKind(c4);
+        c2 = new StraightFlush(c3);
+        c1 = new RoyalFlush(c2);
     }
 
-    public void SetupChain(){
-        c1.setNext(c2);
-        c2.setNext(c3);
-        c3.setNext(c4);
-        c4.setNext(c5);
-        c5.setNext(c6);
-        c6.setNext(c7);
-        c7.setNext(c8);
-        c8.setNext(c9);
-        c9.setNext(c10);
-        c10.setNext(null);
-    }
-
-    public void process(ArrayList<Card> hole, ArrayList<Card> community) {
-        c1.check(hole, community);
+    public void process(ArrayList<Card> cards) {
+        c1.check(cards);
     }
 }
