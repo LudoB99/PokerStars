@@ -5,7 +5,6 @@ import java.util.Collections;
 
 public class Deck {
     private ArrayList<Card> cards;
-    private final String[] values = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
     public Deck() {
         cards = new ArrayList<>();
