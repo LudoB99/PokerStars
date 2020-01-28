@@ -1,14 +1,11 @@
 package cegepst.Entities;
 
-import cegepst.Entities.Card;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
     private ArrayList<Card> cards;
     private final String[] values = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
-    private final char[] types = {'♥', '♦', '♣', '♠'};
 
     public Deck() {
         cards = new ArrayList<>();
@@ -22,18 +19,16 @@ public class Deck {
     }
 
     public void getNewDeck() {
-        int id = 0;
-        for(char type : types) {
-            for(String value : values) {
-                ++id;
-                cards.add(new Card(id, value, type));
+        for(Suit suit : Suit.values()) {
+            for(Rank rank : Rank.values()) {
+                cards.add(new Card(rank.getRank(), suit.getSuit()));
             }
         }
     }
 
     public void showDeck() {
         for(Card card : cards) {
-            System.out.println(card.getDetail());
+            System.out.println(card.getCardName());
         }
     }
 

@@ -12,7 +12,7 @@ public abstract class CoR {
         this.next = next;
     }
 
-    public abstract boolean process(ArrayList<Card> cards);
+    protected abstract boolean process(ArrayList<Card> cards);
 
     public boolean check(ArrayList<Card> cards){
         if(process(cards)) { // Si le check retourne vrai, la chaine arrête.
