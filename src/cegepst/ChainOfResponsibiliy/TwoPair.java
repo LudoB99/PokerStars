@@ -1,5 +1,7 @@
 package cegepst.ChainOfResponsibiliy;
 import cegepst.Entities.Card;
+import cegepst.Entities.Validator;
+
 import java.util.ArrayList;
 
 public class TwoPair extends CoR{
@@ -10,6 +12,6 @@ public class TwoPair extends CoR{
 
     @Override
     public boolean process(ArrayList<Card> cards) {
-        return true;
+        return Validator.isTwoPairs(cards);
     }
 }

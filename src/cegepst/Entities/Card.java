@@ -1,34 +1,31 @@
 package cegepst.Entities;
 
 public class Card {
-    private String rank;
-    private char suit;
+    private Rank rank;
+    private Suit suit;
 
-    public Card(String rank, char suit) {
+    public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
     }
 
-    public String getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    public char getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
     public String getCardName() {
-        return "[" + rank + ' ' + suit + "] ";
+        return "[" + rank.getRank() + ' ' + suit.getSuit() + "] ";
     }
-
-    public char getCardSuit() {return suit; }
 
     public int getCardRank() {
         if(rank.equals(Rank.JACK.getRank())) {return 11;}
         if(rank.equals(Rank.QUEEN.getRank())) {return 12;}
         if(rank.equals(Rank.KING.getRank())) {return 13;}
         if(rank.equals(Rank.ACE.getRank())) {return 14;}
-        return Integer.parseInt(rank);
+        return rank.getValue();
     }
-
 }

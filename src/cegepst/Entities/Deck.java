@@ -20,7 +20,7 @@ public class Deck {
     public void getNewDeck() {
         for(Suit suit : Suit.values()) {
             for(Rank rank : Rank.values()) {
-                cards.add(new Card(rank.getRank(), suit.getSuit()));
+                cards.add(new Card(rank, suit));
             }
         }
     }

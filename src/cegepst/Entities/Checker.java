@@ -30,9 +30,7 @@ public class Checker {
     }
 
     public void process(ArrayList<Card> cards) {
-        Sorter sort = new Sorter(cards);
-        sort.getSortedByRank();
-        Messenger.showCardsOnScreen(cards);
         c1.check(cards);
+        Messenger.showCardsOnScreen(cards);
     }
 }

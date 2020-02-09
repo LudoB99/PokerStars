@@ -1,5 +1,7 @@
 package cegepst.ChainOfResponsibiliy;
 import cegepst.Entities.Card;
+import cegepst.Entities.Validator;
+
 import java.util.ArrayList;
 
 public class HighCard extends CoR {
