@@ -5,12 +5,14 @@ import java.util.List;
 
 public class Validator {
 
-    public static boolean isFlush(List<Card> cards) {
-        //cards = sortBySuit(cards);
+    public static boolean isFlush(List<Card> cards) { //TODO: Test
+        cards = sortBySuit(cards);
         for (Card card : cards) {
+            card.setInHand(true);
             int counter = 0;
             for (Card card2 : cards) {
                 if (card.getSuit() == card2.getSuit() && card.getRank() != card2.getRank()) {
+                    card2.setInHand(true);
                     ++counter;
                 }
 
@@ -18,6 +20,7 @@ public class Validator {
                     return true;
                 }
             }
+            card.setInHand(false);
         }
         return false;
     }
@@ -30,11 +33,16 @@ public class Validator {
         cards = sortByRank(cards);
         int counter = 0;
         for (int i = 0; i < cards.size(); ++i) {
-            if (i + 1 == cards.size()) return false;
-            if (cards.get(i).getRank() == cards.get(i+1).getRank()) ++counter;
+            if (i + 1 == cards.size()) {
+                return false;
+            }
+            if (cards.get(i).getRank() == cards.get(i+1).getRank()) {
+                cards.get(i).setInHand(true);
+                cards.get(i+1).setInHand(true);
+                ++counter;
+            }
             if (counter == 2) return true;
         }
-
         return false;
     }
 
@@ -42,28 +50,29 @@ public class Validator {
         cards = sortByRank(cards);
         for (int i = 0; i < cards.size(); ++i) {
             if (i + 1 == cards.size()) return false;
-            if (cards.get(i).getRank() == cards.get(i+1).getRank()) return true;
+            if (cards.get(i).getRank() == cards.get(i+1).getRank()) {
+                cards.get(i).setInHand(true);
+                cards.get(i+1).setInHand(true);
+                return true;
+            }
         }
-
         return false;
     }
 
     public static boolean isThreeOfAKind(List<Card> cards) {
         cards = sortByRank(cards);
-        return test(cards);
-
-    }
-
-    private static boolean test(List<Card> cards) {
         for (Card card : cards) {
             int counter = 0;
+            card.setInHand(true);
             for (Card card2 : cards) {
                 if (card.getRank() == card2.getRank() && card.getSuit() != card2.getSuit()) {
+                    card2.setInHand(true);
                     ++counter;
                 }
 
                 if (counter == 2) return true;
             }
+            reset(cards);
         }
         return false;
     }
@@ -75,8 +84,10 @@ public class Validator {
         cards = sortByRank(cards);
         for (Card card : cards) {
             int counter = 0;
+            card.setInHand(true);
             for (Card card2 : cards) {
                 if (card.getRank() == card2.getRank() && card.getSuit() != card2.getSuit()) {
+                    card2.setInHand(true);
                     counter++;
                     if (counter == 2) {
                         threeSameCards = true; twoSameCards = false; twoSameCardValue = 0;
@@ -88,6 +99,7 @@ public class Validator {
                     }
                 }
             }
+            reset(cards);
         }
 
         return twoSameCards && threeSameCards;
@@ -100,13 +112,15 @@ public class Validator {
     public static boolean isFourOfAKind(List<Card> cards) {
         for (Card card : cards) {
             int counter = 0;
+            card.setInHand(true);
             for (Card card2 : cards) {
                 if (card.getRank() == card2.getRank() && card.getSuit() != card2.getSuit()) {
+                    card2.setInHand(true);
                     ++counter;
                 }
-
                 if (counter == 3) return true;
             }
+            reset(cards);
         }
         return false;
     }
@@ -120,6 +134,8 @@ public class Validator {
             }
 
             if (cards.get(i + 1).getRank().getValue() - cards.get(i).getRank().getValue() == 1) {
+                cards.get(i).setInHand(true);
+                cards.get(i + 1).setInHand(true);
                 ++counter;
             } else {
                 counter = 0;
@@ -129,8 +145,12 @@ public class Validator {
                 return true;
             }
         }
-
         return false;
+    }
+
+    public static void setHighCard(List<Card> cards) {
+        cards = sortByRank(cards);
+        cards.get(cards.size() - 1).setInHand(true);
     }
 
     private static List<Card> sortByRank(List<Card> cards) {
@@ -172,4 +192,9 @@ public class Validator {
         return Arrays.asList(cardsArray);
     }
 
+    private static void reset(List<Card> cards) {
+        for(Card card : cards ){
+            card.setInHand(false);
+        }
+    }
 }

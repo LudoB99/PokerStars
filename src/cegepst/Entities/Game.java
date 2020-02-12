@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    private Deck deck;
-    private Dealer dealer;
-    private Player player = new Player();
-    private Player opponent = new Player();
+    private Player player = new Player("Vous");
+    private Player opponent = new Player("Votre adversaire");
     private Scanner input;
     private Checker check;
 
@@ -22,29 +20,49 @@ public class Game {
 
     public void start() {
         while (true) {
-            deck = new Deck();
-            dealer = new Dealer(deck);
+            Dealer dealer = new Dealer();
             dealer.startRound(player, opponent);
-            System.out.print("Voulez vous continuer (0) ou vous coucher (1) ? ");
-            if(input.nextInt() == 1){ break; }
-            System.out.print("Vous avez en main: ");
-            player.showHole();
+            Messenger.showPlayerHole(player);
+            Messenger.showOpponentHole(opponent);
+            if(isFolding()) {break;}
             dealer.showTurn();
-            System.out.print("Voulez vous continuer (0) ou vous coucher (1) ? ");
-            if(input.nextInt() == 1){ break; }
-            System.out.print("Vous avez en main: ");
-            player.showHole();
+            if(isFolding()) {break;}
             dealer.showRiver();
-            System.out.println("Le gagnant de la manche est...");
-            check.process(getBoard(player.getHole(), dealer.getCommunity()));
-            System.out.print("Voulez-vous continuer? y/n : ");
-            if(!input.next().equals("y")){ break; }
+            dealer.endTurn(getWinner(player, opponent, dealer.getCommunity()));
+            if(isEnding()) {break;}
         }
-        System.out.println("Merci d'avoir joué!");
+        Messenger.showEndMessage();
+    }
+
+    private Player getWinner(Player player, Player opponent, ArrayList<Card> community) {
+        if(isWinner(player, opponent, community)) {
+            return player;
+        }
+        return opponent;
+    }
+
+    private boolean isWinner (Player player, Player opponent, ArrayList<Card> community) {
+        player.setHole(getBoard(player.getHole(), community));
+        opponent.setHole(getBoard(opponent.getHole(), community));
+        check.process(player);
+        check.process(opponent);
+        return player.getHand().getWeight() > opponent.getHand().getWeight();
+    }
+
+    private boolean isEnding() {
+        Messenger.askIfContinue();
+        return input.next().equals("n");
+    }
+
+    private boolean isFolding() {
+        Messenger.askIfFolding();
+        return input.nextInt() == 1;
     }
 
     private ArrayList<Card> getBoard (ArrayList<Card> hole, ArrayList<Card> community) {
-        community.addAll(hole);
-        return community;
+        ArrayList<Card> result = new ArrayList<Card>();
+        result.addAll(hole);
+        result.addAll(community);
+        return result;
     }
 }

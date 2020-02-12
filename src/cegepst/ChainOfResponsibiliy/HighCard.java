@@ -12,6 +12,7 @@ public class HighCard extends CoR {
 
     @Override
     public boolean process(ArrayList<Card> cards) {
+        Validator.setHighCard(cards);
         return true;
     }
 }

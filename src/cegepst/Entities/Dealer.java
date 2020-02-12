@@ -6,18 +6,21 @@ public class Dealer {
     private Deck deck;
     private ArrayList<Card> community;
 
-    public Dealer(Deck deck) {
-        this.deck = deck;
+    public Dealer() {
+        this.deck = Deck.getInstance();
         community = new ArrayList<>();
     }
 
     public void startRound(Player player, Player opponent) {
-        System.out.println("La partie va commencer.");
         deck.shuffle();
-        System.out.println("Les cartes sont mélangées, je vais les distribuer.");
+        resetGame(player, opponent);
         deal(player, opponent);
         setupTable();
         showFlop();
+    }
+
+    public void endTurn(Player winner) {
+        Messenger.announceWinner(winner);
     }
 
     public void deal(Player player, Player opponent) {
@@ -29,8 +32,6 @@ public class Dealer {
                 opponent.receiveCard(deck.draw(i));
             }
         }
-        System.out.print("Vous avez en main: ");
-        player.showHole();
     }
 
     public void setupTable() {
@@ -69,6 +70,11 @@ public class Dealer {
         for(short i = 0; i < 5; ++i){
             System.out.print(community.get(i).getCardName() + " ");
         }
+    }
+
+    private void resetGame(Player player, Player opponent) {
+        player.reset();
+        opponent.reset();
     }
 
     public ArrayList<Card> getCommunity() {

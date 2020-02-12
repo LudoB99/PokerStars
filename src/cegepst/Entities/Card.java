@@ -3,10 +3,19 @@ package cegepst.Entities;
 public class Card {
     private Rank rank;
     private Suit suit;
+    private boolean isInHand;
 
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
+    }
+
+    public boolean isInHand() {
+        return isInHand;
+    }
+
+    public void setInHand(boolean inHand) {
+        isInHand = inHand;
     }
 
     public Rank getRank() {

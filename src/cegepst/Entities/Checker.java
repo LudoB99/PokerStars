@@ -29,8 +29,7 @@ public class Checker {
         c1 = new RoyalFlush(c2);
     }
 
-    public void process(ArrayList<Card> cards) {
-        c1.check(cards);
-        Messenger.showCardsOnScreen(cards);
+    public void process(Player player) {
+        c1.check(player);
     }
 }
