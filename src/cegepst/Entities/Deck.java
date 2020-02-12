@@ -7,13 +7,6 @@ public class Deck {
     private ArrayList<Card> cards;
     private static Deck instance = null;
 
-    public static Deck getInstance() {
-        if(instance == null) {
-            instance = new Deck();
-        }
-        return instance;
-    }
-
     public Deck() {
         cards = new ArrayList<>();
         getNewDeck();

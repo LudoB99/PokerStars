@@ -1,6 +1,7 @@
 package cegepst.Entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WeightCalculator {
     ArrayList<Card> hand;
@@ -12,10 +13,11 @@ public class WeightCalculator {
     }
 
     public int getWeight() {
-        System.out.print("Début du calcul pour la main : ");
-        Messenger.showCardsOnScreen(hand);
-        System.out.println();
-        int ranking = Name.valueOf(name.toUpperCase()).getRank();
-        return ranking;
+        return Name.valueOf(name.toUpperCase()).getRank() * getHighestCardRank(hand);
+    }
+
+    public int getHighestCardRank(ArrayList<Card> cards) {
+        List<Card> sortedCards = Sorter.sortByRank(cards);
+        return sortedCards.get(sortedCards.size() - 1).getCardRank();
     }
 }

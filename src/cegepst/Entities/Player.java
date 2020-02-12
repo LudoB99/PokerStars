@@ -3,6 +3,7 @@ package cegepst.Entities;
 import cegepst.Entities.Card;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Player {
@@ -24,9 +25,10 @@ public class Player {
     }
 
     public void reset() {
-        for(Card card : hole) {
-            card = null;
+        if(hand != null) {
+            hand.reset();
         }
+        hole.clear();
     }
 
     public void setHole(ArrayList<Card> hole) {
@@ -34,9 +36,8 @@ public class Player {
     }
 
     public void setPlayerHand(ArrayList<Card> cards, String namedType) {
-        int weight = (new WeightCalculator(cards, namedType)).getWeight();
-        String name = Name.valueOf(namedType.toUpperCase()).getName();
-        this.hand = new Hand(cards, weight, name, this);
+        this.hand = new Hand(new ArrayList<Card>(Sorter.sortByRank(cards)), new WeightCalculator(cards,
+                namedType).getWeight(), Name.valueOf(namedType.toUpperCase()).getName());
     }
 
     public Hand getHand() {

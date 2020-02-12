@@ -35,19 +35,22 @@ public class Game {
     }
 
     private Player getWinner(Player player, Player opponent, ArrayList<Card> community) {
-        if(isWinner(player, opponent, community)) {
+        player.setHole(getBoard(player.getHole(), community));
+        opponent.setHole(getBoard(opponent.getHole(), community));
+        check.process(player);
+        check.process(opponent);
+        Messenger.showPlayerHand(player);
+        Messenger.showOpponendHand(opponent);
+        if(player.getHand().getWeight() == opponent.getHand().getWeight()) {
+            return null;
+        }
+
+        if(player.getHand().getWeight() >= opponent.getHand().getWeight()) {
             return player;
         }
         return opponent;
     }
 
-    private boolean isWinner (Player player, Player opponent, ArrayList<Card> community) {
-        player.setHole(getBoard(player.getHole(), community));
-        opponent.setHole(getBoard(opponent.getHole(), community));
-        check.process(player);
-        check.process(opponent);
-        return player.getHand().getWeight() > opponent.getHand().getWeight();
-    }
 
     private boolean isEnding() {
         Messenger.askIfContinue();

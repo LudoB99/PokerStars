@@ -10,6 +10,10 @@ public class Messenger {
         }
     }
 
+    public static void announceDraw() {
+        System.out.println("C'est une égalité!");
+    }
+
     public static void showPlayerHole(Player player) {
         System.out.print("Vous avez en main: ");
         player.showHole();
@@ -20,15 +24,29 @@ public class Messenger {
         player.showHole();
     }
 
-    public static void showPlayerHand(Player player) {
+    public static void showHand(Player player) {
         for(Card card : player.getHand().getHand()) {
             System.out.print(card.getCardName());
         }
     }
 
+    public static void showPlayerHand(Player player) {
+        System.out.print("Votre main : ");
+        showHand(player);
+        System.out.println("-> " + player.getHand().getWeight());
+    }
+
+    public static void showOpponendHand(Player player) {
+        System.out.print("Votre adversaire : ");
+        showHand(player);
+        System.out.println("-> " + player.getHand().getWeight());
+    }
+
     public static void announceWinner(Player player) {
         System.out.print("Le gagnant de la manche est... ");
-        System.out.println(player.getName() + " avec " + player.getHand().getNamedType() + "!");
+        System.out.print(player.getName() + " avec " + player.getHand().getNamedType() + "! ");
+        showCardsOnScreen(player.getHand().getHand());
+        System.out.println("-> " + player.getHand().getWeight());
     }
 
     public static void showEndMessage() {

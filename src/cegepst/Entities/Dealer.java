@@ -7,11 +7,12 @@ public class Dealer {
     private ArrayList<Card> community;
 
     public Dealer() {
-        this.deck = Deck.getInstance();
+        deck = new Deck();
         community = new ArrayList<>();
     }
 
     public void startRound(Player player, Player opponent) {
+        deck.getNewDeck();
         deck.shuffle();
         resetGame(player, opponent);
         deal(player, opponent);
@@ -20,7 +21,11 @@ public class Dealer {
     }
 
     public void endTurn(Player winner) {
-        Messenger.announceWinner(winner);
+        if(winner != null) {
+            Messenger.announceWinner(winner);
+        }else{
+            Messenger.announceDraw();
+        }
     }
 
     public void deal(Player player, Player opponent) {

@@ -6,7 +6,7 @@ import java.util.List;
 public class Validator {
 
     public static boolean isFlush(List<Card> cards) { //TODO: Test
-        cards = sortBySuit(cards);
+        cards = Sorter.sortBySuit(cards);
         for (Card card : cards) {
             card.setInHand(true);
             int counter = 0;
@@ -30,7 +30,7 @@ public class Validator {
     }
 
     public static boolean isTwoPairs(List<Card> cards) {
-        cards = sortByRank(cards);
+        cards = Sorter.sortByRank(cards);
         int counter = 0;
         for (int i = 0; i < cards.size(); ++i) {
             if (i + 1 == cards.size()) {
@@ -47,7 +47,7 @@ public class Validator {
     }
 
     public static boolean isOnePair(List<Card> cards) {
-        cards = sortByRank(cards);
+        cards = Sorter.sortByRank(cards);
         for (int i = 0; i < cards.size(); ++i) {
             if (i + 1 == cards.size()) return false;
             if (cards.get(i).getRank() == cards.get(i+1).getRank()) {
@@ -60,7 +60,7 @@ public class Validator {
     }
 
     public static boolean isThreeOfAKind(List<Card> cards) {
-        cards = sortByRank(cards);
+        cards = Sorter.sortByRank(cards);
         for (Card card : cards) {
             int counter = 0;
             card.setInHand(true);
@@ -81,7 +81,7 @@ public class Validator {
         boolean threeSameCards = false;
         int twoSameCardValue = 0;
         boolean twoSameCards = false;
-        cards = sortByRank(cards);
+        cards = Sorter.sortByRank(cards);
         for (Card card : cards) {
             int counter = 0;
             card.setInHand(true);
@@ -126,7 +126,7 @@ public class Validator {
     }
 
     public static boolean isStraight(List<Card> cards) {
-        cards = sortByRank(cards);
+        cards = Sorter.sortByRank(cards);
         int counter = 0;
         for (int i = 0; i < cards.size(); ++i) {
             if (i + 1 == cards.size()) {
@@ -149,47 +149,8 @@ public class Validator {
     }
 
     public static void setHighCard(List<Card> cards) {
-        cards = sortByRank(cards);
+        cards = Sorter.sortByRank(cards);
         cards.get(cards.size() - 1).setInHand(true);
-    }
-
-    private static List<Card> sortByRank(List<Card> cards) {
-        Card[] cardsArray = cards.toArray(new Card[cards.size()]);
-        int min_j;
-        for (int i = 0 ; i < cardsArray.length ; i ++ )
-        {
-            min_j = i;
-
-            for (int j = i+1 ; j < cardsArray.length ; j++ )
-            {
-                if (cardsArray[j].getRank().getValue() < cardsArray[min_j].getRank().getValue() )
-                {
-                    min_j = j;
-                }
-            }
-            Card help = cardsArray[i];
-            cardsArray[i] = cardsArray[min_j];
-            cardsArray[min_j] = help;
-        }
-        return Arrays.asList(cardsArray);
-    }
-
-    private static List<Card> sortBySuit(List<Card> cards) {
-        Card[] cardsArray = cards.toArray(new Card[cards.size()]);
-        int min_j;
-        for (int i = 0 ; i < cardsArray.length ; i ++ ) {
-            min_j = i;
-
-            for (int j = i+1 ; j < cardsArray.length ; j++ ) {
-                if ( cardsArray[j].getSuit().getValue() < cardsArray[min_j].getSuit().getValue() ) {
-                    min_j = j;
-                }
-            }
-            Card help = cardsArray[i];
-            cardsArray[i] = cardsArray[min_j];
-            cardsArray[min_j] = help;
-        }
-        return Arrays.asList(cardsArray);
     }
 
     private static void reset(List<Card> cards) {

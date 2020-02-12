@@ -3,16 +3,18 @@ package cegepst.Entities;
 import java.util.ArrayList;
 
 public class Hand {
-    private Player owner;
     private ArrayList<Card> hand;
     private int weight;
     private String namedType;
 
-    public Hand(ArrayList<Card> hand, int weight, String namedType, Player owner) {
+    public Hand(ArrayList<Card> hand, int weight, String namedType) {
         this.hand = hand;
         this.weight = weight;
         this.namedType = namedType;
-        this.owner = owner;
+    }
+
+    public void reset() {
+        hand.clear();
     }
 
     public ArrayList<Card> getHand() {
@@ -25,9 +27,5 @@ public class Hand {
 
     public String getNamedType() {
         return namedType;
-    }
-
-    public Player getOwner() {
-        return owner;
     }
 }
