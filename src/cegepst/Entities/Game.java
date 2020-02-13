@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    private Player player = new Player("Vous");
-    private Player opponent = new Player("Votre adversaire");
+    private Player player = new Player("vous");
+    private Player opponent = new Player("votre adversaire");
     private Scanner input;
     private Checker check;
 
